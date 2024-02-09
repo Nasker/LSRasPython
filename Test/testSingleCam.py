@@ -1,20 +1,26 @@
 #!/usr/bin/python
 import pygame.camera
 
-width = 640
-height = 480
 
-pygame.camera.init()
-camlist = pygame.camera.list_cameras()
-print (camlist)
+def main():
+    width = 640
+    height = 480
 
-cam = pygame.camera.Camera("/dev/video0",(width,height))
-cam.start()
+    pygame.camera.init()
+    camlist = pygame.camera.list_cameras()
+    print (camlist)
 
-windowSurfaceObj = pygame.display.set_mode((width,height))
-pygame.display.set_caption('Camera')
+    cam = pygame.camera.Camera("/dev/video0",(width,height))
+    cam.start()
 
-while True:
-    image = cam.get_image()
-    windowSurfaceObj.blit(image,(0,0))
-    pygame.display.update() 
+    windowSurfaceObj = pygame.display.set_mode((width,height))
+    pygame.display.set_caption('Camera')
+
+    while True:
+        image = cam.get_image()
+        windowSurfaceObj.blit(image,(0,0))
+        pygame.display.update()
+
+
+if __name__ == "__main__":
+    main()

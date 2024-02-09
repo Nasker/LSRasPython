@@ -1,10 +1,9 @@
-import os
 import datetime
-import http.client, urllib
+import http.client
+import urllib
 from gpiozero import MotionSensor 
 
 pirPin = 16
-
 pir = MotionSensor(pirPin)
 
 
@@ -17,18 +16,22 @@ def enviaMensaje(mensaje):
     "message": mensaje,
   }), { "Content-type": "application/x-www-form-urlencoded" })
     conn.getresponse()
-    
-    
-while True:
-    print("Buscando movimiento...")
-    pir.wait_for_motion()
-    print("Movimiento detectado!")
 
-    now = datetime.datetime.now()
-    timeStamp = str(now.strftime("%Y-%m-%d_%H:%M:%S"))
 
-    enviaMensaje(timeStamp)  
-    
-    pir.wait_for_no_motion()
-    print("todo en calma!")
-    
+def main():
+    while True:
+        print("Buscando movimiento...")
+        pir.wait_for_motion()
+        print("Movimiento detectado!")
+
+        now = datetime.datetime.now()
+        timeStamp = str(now.strftime("%Y-%m-%d_%H:%M:%S"))
+
+        enviaMensaje(timeStamp)
+
+        pir.wait_for_no_motion()
+        print("todo en calma!")
+
+
+if __name__ == "__main__":
+    main()

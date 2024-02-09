@@ -22,32 +22,35 @@ def enviaMensaje(mensaje):
   }), { "Content-type": "application/x-www-form-urlencoded" })
     conn.getresponse()
 
-pygame.init()
-pygame.camera.init()
-cam = pygame.camera.Camera("/dev/video0",(width,height))
-cam.start()
 
-windowSurfaceObj = pygame.display.set_mode((width,height),1,16)
-pygame.display.set_caption('Camera')
+def main():
+    pygame.init()
+    pygame.camera.init()
+    cam = pygame.camera.Camera("/dev/video0", (width, height))
+    cam.start()
+    windowSurfaceObj = pygame.display.set_mode((width, height), 1, 16)
+    pygame.display.set_caption('Camera')
+    while True:
+        print("Buscando movimiento...")
+        pir.wait_for_motion()
+        print("Movimiento detectado!")
+        print("Realitzando captura de imagen!")
+        image = cam.get_image()
 
-while True:
-    print("Buscando movimiento...")
-    pir.wait_for_motion()
-    print("Movimiento detectado!")
-    print("Realitzando captura de imagen!")
-    image = cam.get_image()
-    
-    windowSurfaceObj.blit(image,(0,0))
-    pygame.display.update()
-    
-    now = datetime.datetime.now()
-    timeStamp = str(now.strftime("%Y-%m-%d_%H:%M:%S"))
-    fileName = "Captura"+timeStamp+".jpg"
-    print("Guardando imagen con nombre: " + fileName)
-    pygame.image.save(image,fileName)
-    
-    enviaMensaje(timeStamp)  
-    
-    pir.wait_for_no_motion()
-    print("todo en calma!")
-    
+        windowSurfaceObj.blit(image,(0,0))
+        pygame.display.update()
+
+        now = datetime.datetime.now()
+        timeStamp = str(now.strftime("%Y-%m-%d_%H:%M:%S"))
+        fileName = "Captura"+timeStamp+".jpg"
+        print("Guardando imagen con nombre: " + fileName)
+        pygame.image.save(image,fileName)
+
+        enviaMensaje(timeStamp)
+
+        pir.wait_for_no_motion()
+        print("todo en calma!")
+
+
+if __name__ == "__main__":
+    main()
