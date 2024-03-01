@@ -6,8 +6,7 @@ def main():
     print("Starting LED and Button test")
     button_pin = 21
     led_pin = 20
-    print("Button pin: " + str(button_pin))
-    print("LED pin: " + str(led_pin))
+    print(f"Button pin: {button_pin}  and LED pin: {led_pin}")
 
     button = Button(button_pin)
     led = LED(led_pin)
