@@ -3,22 +3,22 @@ from Bluetin_Echo import Echo
 
 class UltraSound:
     """
-    Classe que fa un wrapper de la llibreria Bluetin Echo i implementa callbacks
+    Class that wraps the Bluetin Echo Object
     """
     _speed_of_sound = 315  # Aquesta es una variable de classe,
     _n_samples = 1  # compartida entre totes les instàncies.
 
     def __init__(self, id_device, trigger_pin, echo_pin):
         """
-        Constructor de la classe
-        :param id_device:
-        :param trigger_pin:
-        :param echo_pin:
+        Class constructor
+        :param id_device: and Id for the device to be identified
+        :param trigger_pin: the number of the trigger pin of the sensor
+        :param echo_pin: the number of the echo pin of the sensor
         """
         self._id_device = id_device
         self._trigger_pin = trigger_pin
         self._echo_pin = echo_pin
-        self.echo = Echo(self._trigger_pin, self._echo_pin, self._speed_of_sound)
+        self._echo = Echo(self._trigger_pin, self._echo_pin, self._speed_of_sound)
         self._current_reading = 0
         self._last_reading = self.read()
         self._callback_function = None
@@ -36,7 +36,7 @@ class UltraSound:
         Crida el mètode de lectura de la llibreria
         :return:
         """
-        self._current_reading = int(self.echo.read('cm', self._n_samples))
+        self._current_reading = int(self._echo.read('cm', self._n_samples))
         return self._current_reading
 
     def read(self):
@@ -62,7 +62,7 @@ class UltraSound:
         Stops the
         :return:
         """
-        self.echo.stop()
+        self._echo.stop()
 
 
 def print_value(value):
