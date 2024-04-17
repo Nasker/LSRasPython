@@ -1,15 +1,17 @@
 from luma.core.interface.serial import spi
-from luma.oled.device import sh1106
-from PIL import Image
+from luma.oled.device import ssd1306
+from luma.core.render import canvas
+from PIL import ImageFont
 
 # Create an instance of the SPI interface
 serial = spi(device=0, port=0)
 
 # Create an instance of the ssh1106 class
-device = sh1106(serial)
+device = ssd1306(serial)
 
-# Load an image
-image = Image.open('path_to_your_image.png')
+# Load a font
+font = ImageFont.load_default()
 
-# Display the image on the OLED screen
-device.display(image)
+# Create a canvas and draw the text
+with canvas(device) as draw:
+    draw.text((10, 10), "Hello, World!", font=font, fill="white")
