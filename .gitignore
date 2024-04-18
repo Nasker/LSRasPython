@@ -1,3 +1,10 @@
+#Add pycharm files and folders like .idea, .iml, .ipr, .iws
+.idea/
+*.iml
+*.ipr
+*.iws
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

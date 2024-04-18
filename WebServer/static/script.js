@@ -7,7 +7,7 @@ window.onload = function() {
                 document.getElementById('humidity').textContent = 'Humidity: ' + data.humidity + '%';
             })
             .catch(error => console.error('Error:', error));
-    }, 2000);
+    }, 200);
 };
 
 function toggleRelay() {

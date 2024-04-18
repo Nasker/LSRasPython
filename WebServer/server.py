@@ -4,16 +4,17 @@ import board
 import RPi.GPIO as GPIO
 
 DHT_PIN = board.D18
-RELAY_PIN = 24
+RELAY_PIN = 14
 
+# Initialize the DHT device
+dhtDevice = adafruit_dht.DHT11(DHT_PIN, use_pulseio=False)
+
+GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 
 
 app = Flask(__name__)
-
-# Initialize the DHT device
-dhtDevice = adafruit_dht.DHT11(DHT_PIN)
 
 
 @app.route('/')
